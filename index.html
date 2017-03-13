@@ -26,7 +26,7 @@
     <![endif]-->
   </head>
   <body>
-
+    <div id="background" style="position: fixed; z-index: -100"></div>
     <div class="container">
       <div class="row">
         <div class="col-md-12">
@@ -109,5 +109,35 @@
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+
+    <script src="jquery-3.1.1.min.js"></script>
+    <script>
+      var draw_capacitors = function() {
+        var theta = (Math.PI / 2.2);
+        var side_len = 100;
+        for (row = -5; row < 10; row++) {
+          for (col = 0; col < 25; col++) {
+            var off_left = col * Math.sin(theta) * side_len;
+            var off_top = col * Math.cos(theta) * side_len + row * side_len;
+
+            if (row % 2) { 
+              off_left = off_left + Math.sin(theta) * side_len / 2;
+              off_top = off_top + Math.cos(theta) * side_len / 2;
+            }
+
+            var txt = $("<p><strong>┫┣</strong></p>");
+            txt.css("color", "#f8f8f8");
+            txt.css("position", "absolute");
+            txt.css("top", off_top);
+            txt.css("left", off_left);
+            txt.css("letter-spacing", "-0.66em");
+            txt.css("transform", "rotate(" + (Math.PI/2 - theta) + "rad)");
+            txt.appendTo("#background");
+          };
+        };
+      };
+
+      $( document ).ready(draw_capacitors);
+    </script>
   </body>
 </html>
