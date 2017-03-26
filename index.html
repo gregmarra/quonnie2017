@@ -130,8 +130,17 @@
             txt.css("position", "absolute");
             txt.css("top", off_top);
             txt.css("left", off_left);
-            txt.css("letter-spacing", "-9px");
             txt.css("transform", "rotate(" + (Math.PI/2 - theta) + "rad)");
+
+            // Fix bug where Android default font is different, so spacing has to be different
+            var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+            if( userAgent.match( /Android/i ) )
+            {
+              txt.css("letter-spacing", "-0.33em");
+            } else {
+              txt.css("letter-spacing", "-0.66em");
+            }
+            
             txt.appendTo("#background");
           };
         };
